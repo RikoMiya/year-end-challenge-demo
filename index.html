@@ -67,7 +67,14 @@
   }
   .hero-plane-enter{animation:planeEnter 2.1s cubic-bezier(.16,1,.3,1) .35s both}
 
-  .empower-grid{display:flex;flex-wrap:wrap;gap:3px;max-width:204px}
+  .empower-grid{display:flex;flex-wrap:wrap;gap:3px;max-width:70px}
+  @media (min-width:640px){
+    .empower-grid{max-width:120px}
+  }
+  @media (max-width:639px){
+    #panel-ranking table{min-width:0!important}
+    #panel-ranking .overflow-x-auto{overflow-x:hidden}
+  }
   .empower-cell{width:14px;height:14px;border-radius:2px;flex:0 0 auto}
   .empower-cell--partial{position:relative;background:var(--give-soft);overflow:hidden}
   .gift-node{cursor:pointer;transition:opacity .3s ease,filter .3s ease,transform .3s ease;transform-box:fill-box;transform-origin:center}
@@ -425,12 +432,12 @@
         <div id="panel-ranking">
           <div class="reveal glass glass-lg overflow-x-auto" style="animation-delay:100ms">
             <div class="grain"></div>
-            <table class="relative w-full min-w-[560px] text-left border-collapse">
+            <table class="relative w-full sm:min-w-[560px] text-left border-collapse">
               <thead>
                 <tr class="text-[11px] tracking-wide text-muted">
-                  <th class="px-5 py-3 font-normal">Year-End-Challenge Ranking</th>
-                  <th class="px-5 py-3 font-normal cursor-pointer select-none" onclick="setSort()"><span id="hours-th">AI Learning Hours &#8595;</span> <span class="text-muted">&middot; 1 square = 20h</span></th>
-                  <th class="px-5 py-3 font-normal hidden md:table-cell">AI Footprint</th>
+                  <th class="px-3 sm:px-5 py-3 font-normal">Year-End-Challenge Ranking</th>
+                  <th class="px-3 sm:px-5 py-3 font-normal cursor-pointer select-none" onclick="setSort()"><span id="hours-th">AI Learning Hours &#8595;</span> <span class="text-muted">&middot; 1 square = 20h</span></th>
+                  <th class="px-3 sm:px-5 py-3 font-normal hidden md:table-cell">AI Footprint</th>
                 </tr>
               </thead>
               <tbody id="lb-body"></tbody>
@@ -933,7 +940,7 @@
       var pct = Math.round(remainder * 100);
       cells.push('<span class="empower-cell empower-cell--partial" style="background:var(--learn-soft)"><span style="position:absolute;left:0;right:0;bottom:0;height:' + pct + '%;background:var(--learn-bright)"></span></span>');
     }
-    return '<div class="empower-grid" style="max-width:120px">' + cells.join('') + '</div>';
+    return '<div class="empower-grid">' + cells.join('') + '</div>';
   }
 
   function footprintChipsHTML(tracks){
@@ -963,14 +970,14 @@
       var rankBadge = '<span class="mono text-[11px] rank-badge' + (i < 3 ? ' rank-badge--top' : '') + '">' + rankNum + '</span>';
       return '' +
         '<tr data-name="' + r.name + '" class="lb-row" tabindex="0" role="button" aria-label="View summary for ' + r.name + '" onclick="selectGiftPerson(\'' + safeName + '\')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();selectGiftPerson(\'' + safeName + '\')}" style="border-top:1px solid var(--line)">' +
-          '<td class="px-5 py-4"><div class="flex items-center gap-3">' + rankBadge + '<span class="text-sm text-ink">' + r.name + '</span></div></td>' +
-          '<td class="px-5 py-4">' +
-            '<div class="flex items-center gap-3">' +
+          '<td class="px-3 sm:px-5 py-4"><div class="flex items-center gap-2 sm:gap-3">' + rankBadge + '<span class="text-sm text-ink">' + r.name + '</span></div></td>' +
+          '<td class="px-3 sm:px-5 py-4">' +
+            '<div class="flex items-center gap-2 sm:gap-3">' +
               '<span class="tnum text-base text-learnbright">' + r.hours + '<span class="text-xs text-bodyc">h</span></span>' +
               hoursBlockHTML(r.hours) +
             '</div>' +
           '</td>' +
-          '<td class="px-5 py-4 hidden md:table-cell">' +
+          '<td class="px-3 sm:px-5 py-4 hidden md:table-cell">' +
             footprintChipsHTML(r.tracks) +
           '</td>' +
         '</tr>';
